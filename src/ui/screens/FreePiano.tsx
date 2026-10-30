@@ -76,7 +76,7 @@ export function FreePiano({ onBack, start }: { onBack: () => void; start: (p: Se
   };
 
   return (
-    <div className="page with-nav">
+    <div className="page with-nav free-piano">
       <TopBar title="פסנתר חופשי" onBack={onBack} />
       <p className="muted" style={{ marginTop: -6 }}>מנגנים מה שבא. כל צליל מופיע על החמשה. אפשר להקליט משפט קצר ולשמור אותו, או לבנות לופ של עד ארבע רצועות.</p>
 

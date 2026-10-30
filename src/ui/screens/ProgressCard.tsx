@@ -13,11 +13,11 @@ import { Icon, TopBar } from '../components/ui';
 const W = 1080;
 const H = 1350;
 const C = {
-  paper: '#ffffff', sky: '#eef3ff', rule: '#c9d2e8', ink: '#14213d', ink2: '#4a5575', ink3: '#8a93ab', coral: '#ff5a47',
-  keyLine: '#c3cbe0', black: '#14213d',
-  notes: { C: '#d6336c', D: '#ee7a2a', E: '#e3a412', F: '#2e9e5e', G: '#0e9bb0', A: '#4466d8', B: '#8e4fcc' } as Record<string, string>,
+  paper: '#fffefa', sky: '#f5f4ef', rule: '#d5d9d2', ink: '#172b35', ink2: '#4f5d60', ink3: '#8a938f', coral: '#6f9a2c',
+  keyLine: '#cfd3cc', black: '#1a1d22',
+  notes: new Proxy({}, { get: () => '#6f9a2c' }) as Record<string, string>,
 };
-const DISPLAY = '"Secular One", Rubik, sans-serif';
+const DISPLAY = '"Heebo Variable", Heebo, sans-serif';
 
 const isBlack = (m: number) => [1, 3, 6, 8, 10].includes(m % 12);
 
@@ -58,7 +58,7 @@ function draw(cv: HTMLCanvasElement, card: MonthCard, name: string, idx: StatsIn
   }
   ctx.direction = 'ltr';
   ctx.textAlign = 'left';
-  ctx.font = `44px ${DISPLAY}`;
+  ctx.font = `750 44px ${DISPLAY}`;
   ctx.fillStyle = C.ink;
   ctx.fillText('Note', 80, 110);
   const nw = ctx.measureText('Note').width;
@@ -67,10 +67,10 @@ function draw(cv: HTMLCanvasElement, card: MonthCard, name: string, idx: StatsIn
   ctx.direction = 'rtl';
   ctx.textAlign = 'right';
   ctx.fillStyle = C.ink2;
-  ctx.font = '500 36px Rubik, sans-serif';
+  ctx.font = '500 36px "Heebo Variable", sans-serif';
   ctx.fillText(card.monthLabel, W - 80, 110);
   ctx.fillStyle = C.ink;
-  ctx.font = `96px ${DISPLAY}`;
+  ctx.font = `750 96px ${DISPLAY}`;
   ctx.fillText(name ? `החודש של ${name}` : 'החודש שלי', W - 80, 250);
 
   // Numbers: 2×2, each with a note-coloured head.
@@ -89,10 +89,10 @@ function draw(cv: HTMLCanvasElement, card: MonthCard, name: string, idx: StatsIn
     ctx.direction = 'rtl';
     ctx.textAlign = 'right';
     ctx.fillStyle = C.ink;
-    ctx.font = `110px ${DISPLAY}`;
+    ctx.font = `750 110px ${DISPLAY}`;
     ctx.fillText(v, x, y);
     ctx.fillStyle = C.ink2;
-    ctx.font = '400 32px Rubik, sans-serif';
+    ctx.font = '400 32px "Heebo Variable", sans-serif';
     ctx.fillText(l, x, y + 50);
   });
 
@@ -104,7 +104,7 @@ function draw(cv: HTMLCanvasElement, card: MonthCard, name: string, idx: StatsIn
   ctx.direction = 'rtl';
   ctx.textAlign = 'right';
   ctx.fillStyle = C.ink;
-  ctx.font = `40px ${DISPLAY}`;
+  ctx.font = `750 40px ${DISPLAY}`;
   ctx.fillText('המקלדת שלי', W - 80, ky - 34);
   whites.forEach((m, i) => {
     const x = kx + i * kw;
@@ -121,7 +121,7 @@ function draw(cv: HTMLCanvasElement, card: MonthCard, name: string, idx: StatsIn
       ctx.direction = 'ltr';
       ctx.textAlign = 'center';
       ctx.fillStyle = C.ink3;
-      ctx.font = '500 22px Rubik, sans-serif';
+      ctx.font = '500 22px "Heebo Variable", sans-serif';
       ctx.fillText(`C${m / 12 - 1}`, x + kw / 2, ky + kh - 16);
     }
   });
@@ -140,7 +140,7 @@ function draw(cv: HTMLCanvasElement, card: MonthCard, name: string, idx: StatsIn
   ctx.direction = 'rtl';
   ctx.textAlign = 'right';
   ctx.fillStyle = C.ink2;
-  ctx.font = '400 32px Rubik, sans-serif';
+  ctx.font = '400 32px "Heebo Variable", sans-serif';
   footer.forEach((l, i) => ctx.fillText(l, W - 80, 1290 + i * 44 - (footer.length - 1) * 44));
 }
 
@@ -154,7 +154,7 @@ export function ProgressCard({ onBack }: { onBack: () => void }) {
   useEffect(() => {
     let alive = true;
     (async () => {
-      await Promise.all(['400 32px Rubik', '500 36px Rubik', '96px "Secular One"'].flatMap((f) => [document.fonts.load(f, 'אב'), document.fonts.load(f, 'Ab1')]).map((pr) => pr.catch(() => undefined)));
+      await Promise.all(['400 32px "Heebo Variable"', '700 96px "Heebo Variable"'].flatMap((f) => [document.fonts.load(f, 'אב'), document.fonts.load(f, 'Ab1')]).map((pr) => pr.catch(() => undefined)));
       if (!alive || !cv.current) return;
       draw(cv.current, card, settings.name, idx, settings);
       setUrl(cv.current.toDataURL('image/png'));
